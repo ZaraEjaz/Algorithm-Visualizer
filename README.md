@@ -27,4 +27,6 @@ The **Algorithm Visualizer** is an interactive web application that helps users 
 
 
 - **Linked List**: Visualize the structure and traversal of linked lists, where elements are connected via pointers in a linear sequence.
+- ![image](https://github.com/user-attachments/assets/80b5514c-e0f2-4265-addf-16d58b873dfe)
+
 
