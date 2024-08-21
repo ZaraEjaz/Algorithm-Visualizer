@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css" />
+  
+  <title>Algorithm Visualizer | Path Finder</title>
+  </head>
+  <body>
+    <div id="header">
+      <a href="/index.html"><div id="title">Path Finding Visualizer</div></a>
+      <div id="header-right">
+        <div>
+          <select id="algorithm_type" name="sort_type">
+            <option value="dijkstra" selected>Dijkstra's Algorithm</option>
+            <option value="Astar">A* Search algorithm</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button id="backButton" class="button" onclick="goBack()"><p>Back</p></button>
+    </div>
+
+    <div id="indicator-container">
+      <div class="indicator">
+        <div class="indicator-block" id="start-indicator"></div>
+        <div><p>Starting Position</p></div>
+      </div>
+      <div class="indicator">
+        <div class="indicator-block" id="end-indicator"></div>
+        <div><p>Ending Position</p></div>
+      </div>
+      <div class="indicator">
+        <div class="indicator-block" id="visited-indicator"></div>
+        <div><p>Visited Node</p></div>
+      </div>
+      <div class="indicator">
+        <div class="indicator-block" id="wall-indicator"></div>
+        <div><p>Wall</p></div>
+      </div>
+      <div class="indicator">
+        <div class="indicator-block" id="path-indicator"></div>
+        <div><p>Path</p></div>
+      </div>
+    </div>
+    <div id="container"></div>
+    <div id="buttonsdiv">
+      
+      <button id="visualizeButton" class="button"><p>Visualize</p></button>
+      <button id="generateMazeButton" class="button" onclick="generateRandomMaze()"><p>Generate Random Maze</p></button>
+      <button id="clearButton" class="button"><p>Clear Grid</p></button>
+    </div>
+    <script src="D:\DESTOP DATA\DSA Project\DSA Project\Path_finding\script.js"></script>
+  </body>
+</html>

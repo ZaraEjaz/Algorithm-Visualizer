@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Visualizer</title>
+    <style>
+
+h1 {
+    color: #0c333c;
+    margin-top: -10px;
+
+}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #e0f0f1;
+        }
+
+        #ribbon {
+            background-color: #0f5259;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            position: fixed;
+            top: 60px;
+            z-index: 1;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 470px;
+            left: 610px;
+            padding: 10px;
+            width: 100px;
+            font-size: 20px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            background-color: #d62a24;
+            color: #fff;
+            border: none;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover,
+        .clear-button:hover,
+        button:hover {
+            background-color: #1a3e65; /* Darker shade on hover */
+        }
+
+        button {
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            background-color: #30a5a7;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #79bac0;
+        }
+
+        #queue-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 150px;
+        }
+
+        .queue-element {
+            border: 2px solid #555;
+            padding: 40px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            transition: background-color 0.5s;
+        }
+
+        .arrow {
+            margin: 0 10px;
+            font-size: 20px;
+            color: #777;
+        }
+
+        #peek-prompt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 2;
+        }
+
+        #enqueue-input {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #enqueue-button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #227779;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #enqueue-button:hover {
+            background-color: #79bac0;
+        }
+
+        #clear-queue-button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #clear-queue-button:hover {
+            background-color: #ca5656;
+        }
+    </style>
+</head>
+<body>
+    <h1>Queue Visualizer</h1>
+    <a href="C:\Users\PMLS\Downloads\Algorithm-Visualizer-main (2)\Algorithm-Visualizer-main\index.html" onclick="navigateBack()" class="back-button">Back</a>
+    <div id="ribbon">
+        <button onclick="createQueue()">Create Queue</button>
+        <div>
+            <input type="number" id="enqueue-input" placeholder="Enter number to enqueue">
+            <button id="enqueue-button" onclick="enqueue()">Enqueue</button>
+        </div>
+        <button id="clear-queue-button" onclick="clearQueue()">Clear Queue</button>
+        <button onclick="dequeue()">Dequeue</button>
+        <button onclick="frontPeek()">Front Peek</button>
+        <button onclick="backPeek()">Back Peek</button>
+        <button onclick="userDefinedQueue()">User-Defined Queue</button>
+    </div>
+  
+    <div id="queue-container"></div>
+  
+    <div id="peek-prompt">
+        The peek is: <span id="peek-value"></span>
+    </div>
+  
+    <div id="overlay"></div>
+  
+    <script>
+        let queue = [];
+  
+        function createQueue() {
+            queue = Array.from({ length: 5 }, () => Math.floor(Math.random() * 5) + 1);
+            renderQueue();
+        }
+  
+        function enqueue() {
+            const inputElement = document.getElementById('enqueue-input');
+            const inputValue = parseInt(inputElement.value.trim());
+  
+            if (!isNaN(inputValue)) {
+                queue.push(inputValue);
+                inputElement.value = '';
+                renderQueue();
+            } else {
+                alert("Please enter a valid number.");
+            }
+        }
+  
+        function dequeue() {
+            queue.shift();
+            renderQueue();
+        }
+  
+        function clearQueue() {
+            queue = [];
+            renderQueue();
+        }
+  
+        function frontPeek() {
+            const frontPeekValue = queue.length > 0 ? queue[0] : "Queue is empty";
+            showPeekPrompt(frontPeekValue);
+        }
+  
+        function backPeek() {
+            const backPeekValue = queue.length > 0 ? queue[queue.length - 1] : "Queue is empty";
+            showPeekPrompt(backPeekValue);
+        }
+  
+        function userDefinedQueue() {
+            const userInput = prompt("Enter elements for the queue (comma-separated):");
+  
+            if (userInput) {
+                queue = userInput.split(',').map(element => parseInt(element.trim()));
+                renderQueue();
+            }
+        }
+
+        function navigateBack() {
+        window.location.href = "C:\Users\PMLS\Downloads\Algorithm-Visualizer-main (2)\Algorithm-Visualizer-main\index.html"; // Replace with the actual file name or URL of your main page
+    }
+  
+        function showPeekPrompt(value) {
+            const peekPrompt = document.getElementById('peek-prompt');
+            const peekValue = document.getElementById('peek-value');
+            peekValue.textContent = value;
+            peekPrompt.style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+  
+            document.getElementById('overlay').addEventListener('click', hidePeekPrompt);
+        }
+  
+        function hidePeekPrompt() {
+            document.getElementById('peek-prompt').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('overlay').removeEventListener('click', hidePeekPrompt);
+        }
+  
+        function renderQueue() {
+            const queueContainer = document.getElementById('queue-container');
+            queueContainer.innerHTML = '';
+  
+            for (let i = 0; i < queue.length; i++) {
+                const element = document.createElement('div');
+                element.className = 'queue-element';
+                element.textContent = queue[i];
+                queueContainer.appendChild(element);
+  
+                if (i < queue.length - 1) {
+                    const arrow = document.createElement('div');
+                    arrow.className = 'arrow';
+                    arrow.textContent = '→';
+                    queueContainer.appendChild(arrow);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

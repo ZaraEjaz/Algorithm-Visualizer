@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Implementation</title>
+    <style>
+        input[type="number"] {
+            width: 50px;
+        }
+
+        .clear-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #dc3545;
+            color: #dee2e8;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #daeef3;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            color: #1d5f6d;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background-color: rgb(33, 171, 196);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .linked-list-container {
+            display: flex;
+            margin-top: 20px;
+            align-items: center; /* Center items horizontally */
+            flex-wrap: wrap; /* Allow items to wrap to the next row */
+        }
+
+        .linked-list {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        h2 {
+            color: #1d5f6d;
+        }
+
+        .node-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center items horizontally */
+        }
+
+        .node {
+            border: 2px solid #333;
+            background-color: #fff;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            color: #333;
+            font-size: 20px;
+            margin: 0 5px;
+        }
+
+        .head-label {
+            color: #007bff;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .list-item-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #singly-list-container,
+        #doubly-list-container {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .operation-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        select,
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+
+        button,
+        select,
+        input {
+            transition: background-color 0.3s;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-button:hover,
+        .clear-button:hover,
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+        }
+
+        /* Line between the sections */
+        .linked-list:not(:last-child) {
+            border-right: 2px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="C:\Users\PMLS\Downloads\Algorithm-Visualizer-main (2)\Algorithm-Visualizer-main\index.html" onclick="navigateBack()" class="back-button">Back</a>
+    <h1>Linked List Visualization</h1>
+
+    <div class="linked-list-container">
+        <div class="linked-list" id="linked-list-singly">
+            <h2>Singly Linked List</h2>
+            <button onclick="generateRandomListSingly()">Generate random list</button>
+            <button onclick="generateCustomListSingly()">Generate custom list</button>
+            <div id="singly-list-container" class="node-container"></div>
+            <div class="operation-container" id="operation-container-singly">
+                <select id="operation-singly" onchange="setOperationSingly()">
+                    <option value="insert">Insert element</option>
+                    <option value="remove">Remove element</option>
+                    <option value="search">Search element</option>
+                </select>
+                <div id="positionInput-singly" style="display:none;">
+                    <label for="position-singly">Position (0..N):</label>
+                    <input type="number" id="position-singly" placeholder="0">
+                </div>
+                <div id="valueInput-singly" style="display:none;">
+                    <label for="value-singly">Value:</label>
+                    <input type="number" id="value-singly" placeholder="22">
+                </div>
+                <button onclick="runOperationSingly()">Go!</button>
+            </div>
+            <div class="info" id="info-singly"></div>
+            <button class="clear-button" onclick="clearSinglyLinkedList()">Clear Singly Linked List</button>
+        </div>
+
+        <div class="linked-list" id="linked-list-doubly">
+            <h2>Doubly Linked List</h2>
+            <button onclick="generateRandomListDoubly()">Generate random list</button>
+            <button onclick="generateCustomListDoubly()">Generate custom list</button>
+            <div id="doubly-list-container" class="node-container"></div>
+            <div class="operation-container" id="operation-container-doubly">
+                <select id="operation-doubly" onchange="setOperationDoubly()">
+                    <option value="insert">Insert element</option>
+                    <option value="remove">Remove element</option>
+                    <option value="search">Search element</option>
+                </select>
+                <div id="positionInput-doubly" style="display:none;">
+                    <label for="position-doubly">Position (0..N):</label>
+                    <input type="number" id="position-doubly" placeholder="0">
+                </div>
+                <div id="valueInput-doubly" style="display:none;">
+                    <label for="value-doubly">Value:</label>
+                    <input type="number" id="value-doubly" placeholder="22">
+                </div>
+                <button onclick="runOperationDoubly()">Go!</button>
+            </div>
+            <div class="info" id="info-doubly"></div>
+            <button class="clear-button" onclick="clearDoublyLinkedList()">Clear Doubly Linked List</button>
+        </div>
+    </div>
+
+    <script>
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            insertElement(data, position) {
+                const newNode = new Node(data);
+
+                if (position === 0) {
+                    newNode.next = this.head;
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    let index = 0;
+
+                    while (current !== null && index < position - 1) {
+                        current = current.next;
+                        index++;
+                    }
+
+                    if (current !== null) {
+                        newNode.next = current.next;
+                        current.next = newNode;
+                    }
+                }
+            }
+
+            removeElement(position) {
+                if (position === 0) {
+                    this.head = this.head.next;
+                } else {
+                    let current = this.head;
+                    let index = 0;
+
+                    while (current !== null && index < position - 1) {
+                        current = current.next;
+                        index++;
+                    }
+
+                    if (current !== null && current.next !== null) {
+                        current.next = current.next.next;
+                    }
+                }
+            }
+
+            searchElement(position) {
+        let current = this.head;
+        let index = 0;
+
+        while (current !== null && index < position) {
+            current = current.next;
+            index++;
+        }
+
+        if (current !== null) {
+            document.getElementById('info-singly').innerText = `Element at position ${position}: ${current.data}`;
+        } else {
+            document.getElementById('info-singly').innerText = `No element found at position ${position}`;
+        }
+    }
+        }
+
+        class DoublyNode {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+                this.prev = null;
+            }
+        }
+
+        class DoublyLinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            insertElement(data, position) {
+                const newNode = new DoublyNode(data);
+
+                if (position === 0) {
+                    if (this.head !== null) {
+                        newNode.next = this.head;
+                        this.head.prev = newNode;
+                    }
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    let index = 0;
+
+                    while (current !== null && index < position - 1) {
+                        current = current.next;
+                        index++;
+                    }
+
+                    if (current !== null) {
+                        newNode.next = current.next;
+                        newNode.prev = current;
+                        if (current.next !== null) {
+                            current.next.prev = newNode;
+                        }
+                        current.next = newNode;
+                    }
+                }
+            }
+
+            removeElement(position) {
+                if (position === 0) {
+                    if (this.head !== null) {
+                        this.head = this.head.next;
+                        if (this.head !== null) {
+                            this.head.prev = null;
+                        }
+                    }
+                } else {
+                    let current = this.head;
+                    let index = 0;
+
+                    while (current !== null && index < position - 1) {
+                        current = current.next;
+                        index++;
+                    }
+
+                    if (current !== null && current.next !== null) {
+                        current.next = current.next.next;
+                        if (current.next !== null) {
+                            current.next.prev = current;
+                        }
+                    }
+                }
+            }
+
+            searchElement(position) {
+                position = parseInt(position); // Parse position as an integer
+    let current = doublyLinkedList.head;
+    let index = 0;
+    function navigateBack() {
+        window.location.href = "C:\Users\PMLS\Downloads\Algorithm-Visualizer-main (2)\Algorithm-Visualizer-main\index.html"; // Replace with the actual file name or URL of your main page
+    }
+
+    while (current !== null && index < position) {
+        current = current.next;
+        index++;
+    }
+
+    if (current !== null) {
+        const infoContainer = document.getElementById('info-doubly');
+        const prevData = current.prev ? current.prev.data : 'null';
+        const nextData = current.next ? current.next.data : 'null';
+        const info = `Element at position ${position}: ${current.data}, Prev: ${prevData}, Next: ${nextData}`;
+        infoContainer.innerText = info;
+    } else {
+        document.getElementById('info-doubly').innerText = `No element found at position ${position}`;
+    }
+}
+        }
+
+        function generateRandomListSingly() {
+            const list = new LinkedList();
+            for (let i = 1; i <= 5; i++) {
+                list.insertElement(Math.floor(Math.random() * 100), i - 1);
+            }
+            displayListSingly(list);
+        }
+
+        function generateRandomListDoubly() {
+            const list = new DoublyLinkedList();
+            for (let i = 1; i <= 5; i++) {
+                list.insertElement(Math.floor(Math.random() * 100), i - 1);
+            }
+            displayListDoubly(list);
+        }
+
+        function clearSinglyLinkedList() {
+            singlyLinkedList = new LinkedList();
+            updateLinkedListVisualization('singly');
+        }
+
+        function clearDoublyLinkedList() {
+            doublyLinkedList = new DoublyLinkedList();
+            updateLinkedListVisualization('doubly');
+        }
+
+function displayListSingly(list) {
+    const listContainer = document.getElementById('singly-list-container');
+    listContainer.innerHTML = '';
+
+    let current = list.head;
+    while (current !== null) {
+        const nodeElement = document.createElement('div');
+        nodeElement.className = 'node';
+        nodeElement.innerText = current.data;
+        listContainer.appendChild(nodeElement);
+        current = current.next;
+    }
+}
+
+function displayListDoubly(list) {
+    const listContainer = document.getElementById('doubly-list-container');
+    listContainer.innerHTML = '';
+
+    let current = list.head;
+    while (current !== null) {
+        const nodeElement = document.createElement('div');
+        nodeElement.className = 'node';
+        nodeElement.innerText = current.data;
+        listContainer.appendChild(nodeElement);
+        current = current.next;
+    }
+}
+
+        let singlyLinkedList = new LinkedList();
+        let doublyLinkedList = new DoublyLinkedList();
+
+        function setOperationSingly() {
+            const operation = document.getElementById('operation-singly').value;
+            const positionInput = document.getElementById('positionInput-singly');
+            const valueInput = document.getElementById('valueInput-singly');
+
+            positionInput.style.display = 'none';
+            valueInput.style.display = 'none';
+
+            if (operation === 'insert') {
+                positionInput.style.display = 'block';
+                valueInput.style.display = 'block';
+            } else if (operation === 'remove' || operation === 'search') {
+                positionInput.style.display = 'block';
+            }
+        }
+
+        function runOperationSingly() {
+    const operation = document.getElementById('operation-singly').value;
+    const position = parseInt(document.getElementById('position-singly').value);
+    const value = parseInt(document.getElementById('value-singly').value);
+
+    if (operation === 'insert') {
+        singlyLinkedList.insertElement(value, position);
+    } else if (operation === 'remove') {
+        singlyLinkedList.removeElement(position);
+    } else if (operation === 'search') {
+        singlyLinkedList.searchElement(position);
+    }
+
+    updateLinkedListVisualization('singly');
+}
+
+        function setOperationDoubly() {
+            const operation = document.getElementById('operation-doubly').value;
+            const positionInput = document.getElementById('positionInput-doubly');
+            const valueInput = document.getElementById('valueInput-doubly');
+
+            positionInput.style.display = 'none';
+            valueInput.style.display = 'none';
+
+            if (operation === 'insert') {
+                positionInput.style.display = 'block';
+                valueInput.style.display = 'block';
+            } else if (operation === 'remove' || operation === 'search') {
+                positionInput.style.display = 'block';
+            }
+        }
+
+        function runOperationDoubly() {
+            const operation = document.getElementById('operation-doubly').value;
+            const position = parseInt(document.getElementById('position-doubly').value);
+            const value = parseInt(document.getElementById('value-doubly').value);
+
+            if (operation === 'insert') {
+                doublyLinkedList.insertElement(value, position);
+            } else if (operation === 'remove') {
+                doublyLinkedList.removeElement(position);
+            } else if (operation === 'search') {
+                doublyLinkedList.searchElement(value);
+            }
+
+            updateLinkedListVisualization('doubly');
+        }
+
+        function updateLinkedListVisualization(type) {
+    const linkedListDiv = document.getElementById(`linked-list-${type}`);
+    const listContainer = document.getElementById(`${type}-list-container`);
+    listContainer.innerHTML = '';
+
+    let current = type === 'singly' ? singlyLinkedList.head : doublyLinkedList.head;
+
+    while (current !== null) {
+        const listItemContainer = document.createElement('div');
+        listItemContainer.className = 'list-item-container';
+
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = 'node';
+        nodeDiv.innerText = current.data;
+        listItemContainer.appendChild(nodeDiv);
+
+        // Add an arrow for singly linked list
+        if (type === 'singly' && current.next !== null) {
+            const arrowDiv = document.createElement('div');
+            arrowDiv.className = 'arrow';
+            arrowDiv.innerHTML = '&#8594;'; // Right arrow
+            listItemContainer.appendChild(arrowDiv);
+        }
+
+        // Add arrows for doubly linked list
+        if (type === 'doubly') {
+            if (current.prev === null) {
+                const headLabel = document.createElement('div');
+                headLabel.className = 'head-label';
+                headLabel.innerText = 'HEAD';
+                listItemContainer.appendChild(headLabel);
+            } else {
+                const arrowDivPrev = document.createElement('div');
+                arrowDivPrev.className = 'arrow';
+                arrowDivPrev.innerHTML = '&#8592;'; // Left arrow
+                listItemContainer.appendChild(arrowDivPrev);
+            }
+
+            if (current.next !== null) {
+                const arrowDivNext = document.createElement('div');
+                arrowDivNext.className = 'arrow';
+                arrowDivNext.innerHTML = '&#8594;'; // Right arrow
+                listItemContainer.appendChild(arrowDivNext);
+            }
+        }
+
+        listContainer.appendChild(listItemContainer);
+        current = type === 'singly' ? current.next : current.next;
+    }
+}
+
+        function generateRandomListSingly() {
+            singlyLinkedList = new LinkedList();
+            for (let i = 0; i < 5; i++) {
+                singlyLinkedList.insertElement(Math.floor(Math.random() * 100), i);
+            }
+            updateLinkedListVisualization('singly');
+        }
+
+        function generateCustomListSingly() {
+            singlyLinkedList = new LinkedList();
+            const customList = prompt('Enter elements separated by commas:');
+            const elements = customList.split(',').map(Number);
+
+            for (let i = 0; i < elements.length; i++) {
+                singlyLinkedList.insertElement(elements[i], i);
+            }
+            updateLinkedListVisualization('singly');
+        }
+
+        function generateRandomListDoubly() {
+            doublyLinkedList = new DoublyLinkedList();
+            for (let i = 0; i < 5; i++) {
+                doublyLinkedList.insertElement(Math.floor(Math.random() * 100), i);
+            }
+            updateLinkedListVisualization('doubly');
+        }
+
+        function generateCustomListDoubly() {
+            doublyLinkedList = new DoublyLinkedList();
+            const customList = prompt('Enter elements separated by commas:');
+            const elements = customList.split(',').map(Number);
+
+            for (let i = 0; i < elements.length; i++) {
+                doublyLinkedList.insertElement(elements[i], i);
+            }
+            updateLinkedListVisualization('doubly');
+        }
+    </script>
+</body>
+</html>
+
+
+

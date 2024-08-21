@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        #main {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #bcd8dd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #header {
+            background-color: #42929c;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        #title {
+            font-size: 36px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        .algo-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, transform 0.3s;
+            cursor: pointer; /* Add cursor pointer on hover */
+        }
+
+        .algo-container:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .category_link {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .imageContainer {
+            overflow: hidden;
+            height: 180px;
+        }
+
+        .image {
+            width: 100%;
+            height: auto;
+        }
+
+        .description {
+            padding: 15px;
+            color: rgb(4, 53, 56);
+            
+        }
+
+        .description p:first-child {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            align-items: center;
+            align-content: center;
+        }
+
+        #credits-container {
+        margin-top: 20px;
+        text-align: center;
+        background-color: #42929c;
+        padding: 10px;
+        border-radius: 8px;
+        color: #fff;
+        position: fixed;
+
+        bottom: 10px;
+        left: 65%;
+        width: 30%;
+    }
+
+        .description p:last-child {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            #container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .algo-container {
+                width: 100%;
+            }
+        }
+    </style>
+    <title>Algorithm Visualizer</title>
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <a href="/index.html" id="title">Algorithm Visualizer</a>
+        </div>
+        <div id="credits-container">
+            <p>Made by Sarah Qasim, Humna Ahmed & Zara Ejaz</p>
+        </div>
+        <div id="container">
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Path_finding\index.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://static.vecteezy.com/system/resources/previews/007/459/279/original/route-location-symbol-illustration-track-route-road-free-vector.jpg" class="image" alt="Path Finding Algorithms Image" />
+                    </div>
+                    <div class="description">
+                        <p>Path Finding Algorithms</p>
+                        <p>Pathfinding algorithms are usually an attempt to solve the shortest and efficient path problems in graph theory. They try to find the best path given a starting point and ending point based on some predefined criteria.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Searching\binarysearch.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://storage.googleapis.com/algodailyrandomassets/tutorials-optimized/binarySearch1.png" class="image" alt="Binary Search Tree Algorithm Image" />
+                    </div>
+                    <div class="description">
+                        <p>Binary Search Algorithm</p>
+                        <p>Binary search is an efficient algorithm that finds the position of a target value in a sorted collection by repeatedly dividing the search space in half. It has a time complexity of O(log n).</p>
+                    </div>
+                </a>
+            </div>
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Sorting\Sorting.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://miro.medium.com/v2/resize:fit:1029/1*_qUuB7vQ716KuLp6bx3-oQ.png" class="image" alt="Sorting Algorithms Image" />
+                    </div>
+                    <div class="description">
+                        <p>Sorting Algorithms</p>
+                        <p>Sorting is a process of ordering or placing a list of elements from a collection in some kind of order. It arranges the data in ascending and descending order, which makes searching easier.</p>
+                    </div>
+                </a>
+            </div>
+            <!-- Placeholder for Linear Search -->
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Searching\linearsearch.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--KwlAZJVc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/19k583f8kooery0sthod.png" class="image" alt="Linear Search Algorithm Image" />
+                    </div>
+                    <div class="description">
+                        <p>Linear Search</p>
+                        <p>Linear search is a basic search algorithm that finds the position of a target element within a list.</p>
+                    </div>
+                </a>
+            </div>
+            <!-- Placeholder for Stack -->
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Stack\stack.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://www.boardinfinity.com/blog/content/images/2022/10/pictorial-representation-of-stack.png" class="image" alt="Stack Data Structure Image" />
+                    </div>
+                    <div class="description">
+                        <p>Stack</p>
+                        <p>Stack is a data structure that follows the Last In, First Out (LIFO) principle.</p>
+                    </div>
+                </a>
+            </div>
+            <!-- Placeholder for Queue -->
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Queue\Queue.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://edurev.gumlet.io/ApplicationImages/Temp/1611931_bb26571f-1074-4129-9fca-491679f0b4fb_lg.png?w=376&dpr=2.6" class="image" alt="Queue Data Structure Image" />
+                    </div>
+                    <div class="description">
+                        <p>Queue</p>
+                        <p>Queue is a data structure that follows the First In, First Out (FIFO) principle.</p>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Placeholder for Linked List -->
+            <div class="algo-container">
+                <a href="D:\DESTOP DATA\DSA Project\DSA Project\Linked List\linkedlist.html" class="category_link" target="_blank">
+                    <div class="imageContainer">
+                        <img src="https://static.wikia.nocookie.net/leetcode/images/9/96/Linked_list.png/revision/latest?cb=20210107211753" class="image" alt="Linked List Data Structure Image" />
+                    </div>
+                    <div class="description">
+                        <p>Linked List</p>
+                        <p>Linked List is a linear data structure where elements are stored in nodes, and each node points to the next node in the sequence.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>
+</html>

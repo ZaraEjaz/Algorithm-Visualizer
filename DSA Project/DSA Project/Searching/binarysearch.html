@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            background-color: #94c9d1;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .left-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #e5eced;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px;
+        }
+
+        .right-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #fefefe;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px;
+        }
+
+        .header {
+            font-size: 35px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%;
+            max-width: 300px;
+            background-color: #f5f5f5;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        #array-container {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            background-color: #fefefe;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .block {
+            width: 28px;
+            background-color: #1a7585 !important;
+            transition: 0.2s all ease;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            margin-right: 2px;
+            transform-origin: bottom;
+            animation: fadeInDown 0.5s ease-out, colorChange 0.3s ease-out;
+        }
+
+        .block_id {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        #text {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .back-btn {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #c0392b;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: #4caf50;
+            }
+
+            100% {
+                background-color: #3498db;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left-container">
+        <p class="header">Binary Search Visualizer</p>
+
+        <div class="input-container">
+            <label for="arraySize">Enter the number of elements for binary search:</label>
+            <input type="number" id="arraySize" name="arraySize" min="5" max="30" value="20" />
+            <br />
+            <div class="checkbox-label">
+                <label for="randomizeNumbers">Randomize Numbers:</label>
+                <input type="checkbox" id="randomizeNumbers" name="randomizeNumbers" checked />
+            </div>
+            <br />
+            <label for="searchValue">Number to be Searched:</label>
+            <input type="text" id="searchValue" name="searchValue" />
+            <br />
+            <label for="speed">Visualization Speed:</label>
+            <select id="speed" name="speed">
+                <option value="1">Slow</option>
+                <option value="5" selected>Medium</option>
+                <option value="10">Fast</option>
+            </select>
+        </div>
+
+        <div class="button-container">
+            <button class="action-btn" onclick="randomizeArray()">Randomize Numbers</button>
+            <button class="action-btn" onclick="startBinarySearch()">Search</button>
+            <button class="action-btn" onclick="resetArray()">Reset Numbers</button>
+            <button class="back-btn" onclick="goToMainPage()">Back</button>
+        </div>
+
+        <div id="text"></div>
+    </div>
+
+    <div class="right-container">
+        <div id="array-container" class="array-container"></div>
+    </div>
+
+    <script>
+        // Function to generate the array of blocks
+        function generateArray() {
+            var container = document.getElementById("array-container");
+            var randomizeNumbers = document.getElementById("randomizeNumbers").checked;
+            container.innerHTML = "";
+            var arr = [];
+            var arraySize = document.getElementById("arraySize").value;
+
+            for (var i = 0; i < arraySize; i++) {
+                var val;
+                if (randomizeNumbers) {
+                    val = Number(Math.ceil(Math.random() * 100));
+                } else {
+  
+                    val = prompt("Enter value for element at position " + (i + 1) + ":");
+                }
+                arr.push(val);
+            }
+
+            arr.sort(function (a, b) {
+                return a - b;
+            });
+
+            for (var i = 0; i < arraySize; i++) {
+                var value = arr[i];
+
+                var arrayEle = document.createElement("div");
+                arrayEle.classList.add("block");
+                arrayEle.style.height = value * 3 + "px";
+
+                var arrayEleLabel = document.createElement("div");
+                arrayEleLabel.classList.add("block_id");
+                arrayEleLabel.innerText = value;
+
+                arrayEle.appendChild(arrayEleLabel);
+                container.appendChild(arrayEle);
+            }
+        }
+
+        function goToMainPage() {
+            // You can customize this URL to match the actual location of your main page
+            window.location.href = "C:/Users/PMLS/Downloads/Algorithm-Visualizer-main (2)/Algorithm-Visualizer-main/index.html";
+        }
+        
+        // Function to randomize array
+        function randomizeArray() {
+            generateArray();
+            document.getElementById("text").innerText = "";
+        }
+
+        // Asynchronous BinarySearch function
+        async function startBinarySearch() {
+            var container = document.getElementById("array-container");
+            var blocks = container.querySelectorAll(".block");
+            var output = document.getElementById("text");
+
+            // Extracting the value of the element to be searched
+            var num = document.getElementById("searchValue").value;
+
+            // Extracting the visualization speed
+            var speed = document.getElementById("speed").value;
+
+            // Colouring all the blocks violet
+            for (var i = 0; i < blocks.length; i += 1) {
+                blocks[i].style.backgroundColor = "#6b5b95";
+            }
+
+            output.innerText = "";
+
+            // BinarySearch Algorithm
+            var start = 0;
+            var end = blocks.length - 1;
+            var flag = 0;
+
+            while (start <= end) {
+                // Middle index
+                var mid = Math.floor((start + end) / 2);
+                blocks[mid].style.backgroundColor = "#FF4949";
+
+                // Value at mid index
+                var value = Number(blocks[mid].childNodes[0].innerHTML);
+
+                // To wait based on the speed
+                await new Promise((resolve) =>
+                    setTimeout(() => {
+                        resolve();
+                    }, 500 / speed) // Adjusted delay calculation
+                );
+
+                // Current element is equal to the element
+                // entered by the user
+                if (value == num) {
+                    output.innerText = "Element Found";
+                    blocks[mid].style.backgroundColor = "#13CE66";
+                    flag = 1;
+                    break;
+                }
+                // Current element is greater than the element
+                // entered by the user
+                if (value > num) {
+                    end = mid - 1;
+                    blocks[mid].style.backgroundColor = "#6b5b95";
+                } else {
+                    start = mid + 1;
+                    blocks[mid].style.backgroundColor = "#6b5b95";
+                }
+            }
+
+            if (flag === 0) {
+                output.innerText = "Element Not Found";
+            }
+        }
+
+        // Function to reset array
+        function resetArray() {
+            generateArray();
+            document.getElementById("text").innerText = "";
+        }
+
+        // Initial generation of array
+        generateArray();
+    </script>
+</body>
+
+</html>
