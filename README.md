@@ -1,4 +1,4 @@
-Here's a brief explanation you can use in the GitHub README for your Algorithm Visualizer project:
+![image](https://github.com/user-attachments/assets/0c27d7d5-9602-4808-88aa-603abb0d7ea7)
 
 ---
 
